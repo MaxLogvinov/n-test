@@ -1,0 +1,24 @@
+.AppBar {
+  background-color: #00838f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  -webkit-flex-direction: row;
+  width: 100%;
+  height: 80px;
+}
+
+.input {
+  width: 63.5%;
+  background: #f2f2f2;
+  height: 42px;
+  margin: 0 0 0 32px;
+  padding: 4px 16px 5px;
+  border-radius: 4px;
+}
+
+.button {
+  width: 105px;
+  height: 42px;
+}

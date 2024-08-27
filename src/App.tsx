@@ -1,7 +1,12 @@
-import './App.scss';
+import styles from './App.module.scss';
+import Header from './components/Header/Header';
 
 function App() {
-  return <></>;
+  return (
+    <div className={styles.page}>
+      <Header />
+    </div>
+  );
 }
 
 export default App;
