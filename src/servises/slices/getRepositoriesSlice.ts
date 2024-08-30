@@ -1,16 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getRepositories } from '../thunks/getRepositories';
+import { PayloadAction } from '@reduxjs/toolkit';
 
-const initialGithubState = {
+interface GithubState {
+  repositories: Repository[];
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  error: string | null;
+  isSearchStarted: boolean;
+}
+
+const initialGithubState: GithubState = {
   repositories: [],
   status: 'idle',
-  error: null
+  error: null,
+  isSearchStarted: false
 };
 
 const githubSlice = createSlice({
   name: 'github',
   initialState: initialGithubState,
-  reducers: {},
+  reducers: {
+    setIsSearchStarted: (state, action: PayloadAction<boolean>) => {
+      state.isSearchStarted = action.payload;
+    }
+  },
   extraReducers: builder => {
     builder
       .addCase(getRepositories.pending, state => {
@@ -28,4 +41,5 @@ const githubSlice = createSlice({
   }
 });
 
+export const { setIsSearchStarted } = githubSlice.actions;
 export default githubSlice.reducer;

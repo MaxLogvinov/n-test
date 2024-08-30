@@ -1,17 +1,20 @@
 import { AppBar, InputBase, Button } from '@mui/material';
 import styles from './Header.module.scss';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import { getRepositories } from '../../servises/thunks/getRepositories';
+import { AppDispatch } from '../../servises/store';
+import { setIsSearchStarted } from '../../servises/slices/getRepositoriesSlice';
 
 export default function Header() {
-  const [query, setQuery] = useState('');
-  const dispatch = useDispatch();
+  const [query, setQuery] = useState<string>('');
+  const dispatch = useDispatch<AppDispatch>();
 
-  const handleSearch = e => {
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (query.trim()) {
       dispatch(getRepositories(query));
+      dispatch(setIsSearchStarted(true));
     }
   };
 
