@@ -8,7 +8,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 
 export default function RepositoryList() {
   const { repositories, status, error, isSearchStarted } = useSelector(githubStates);
@@ -29,37 +28,45 @@ export default function RepositoryList() {
   return (
     <main>
       {!isSearchStarted && (
-        <Typography className={styles.heading} variant="h1" component="h2">
+        <Typography className={styles.heading} variant="h1" component="h1">
           Добро пожаловать
         </Typography>
       )}
       {isSearchStarted && (
-        <TableContainer component={Paper}>
-          <Table sx={{ maxWidth: 912 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Название</TableCell>
-                <TableCell align="left">Язык</TableCell>
-                <TableCell align="left">Число&nbsp;форков</TableCell>
-                <TableCell align="left">Число&nbsp;звёзд</TableCell>
-                <TableCell align="left">Дата&nbsp;обновления</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {repositories.map(repo => (
-                <TableRow key={repo.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell component="th" scope="row">
-                    {repo.name}
-                  </TableCell>
-                  <TableCell align="left">{repo.language}</TableCell>
-                  <TableCell align="left">{repo.forks_count}</TableCell>
-                  <TableCell align="left">{repo.stargazers_count}</TableCell>
-                  <TableCell align="left">{formatDate(repo.updated_at)}</TableCell>
+        <section className={styles.section}>
+          <Typography className={styles.subheading} variant="h1" component="h2">
+            Результаты поиска
+          </Typography>
+          <TableContainer>
+            <Table className={styles.tableContainer} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Название</TableCell>
+                  <TableCell align="left">Язык</TableCell>
+                  <TableCell align="left">Число&nbsp;форков</TableCell>
+                  <TableCell align="left">Число&nbsp;звёзд</TableCell>
+                  <TableCell align="left">Дата&nbsp;обновления</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {repositories.map(repo => (
+                  <TableRow
+                    key={repo.id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {repo.name}
+                    </TableCell>
+                    <TableCell align="left">{repo.language}</TableCell>
+                    <TableCell align="left">{repo.forks_count}</TableCell>
+                    <TableCell align="left">{repo.stargazers_count}</TableCell>
+                    <TableCell align="left">{formatDate(repo.updated_at)}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </section>
       )}
     </main>
   );
