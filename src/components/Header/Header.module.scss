@@ -1,12 +1,12 @@
 .AppBar {
   background-color: #00838f;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: row;
-  -webkit-flex-direction: row;
   width: 100%;
   height: 80px;
+  gap: 8px;
+  box-shadow: none;
 }
 
 .input {

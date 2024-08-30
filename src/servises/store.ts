@@ -1,10 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import githubReducer from '../servises/slices/getRepositoriesSlice';
 
 const rootReducer = combineReducers({
-  //   designers: designersSlice,
-  //   issues: issuesSlice,
-  //   theme: themeSlice,
-  //   comments: commentsSlice
+  github: githubReducer
 });
 
 export const store = configureStore({
