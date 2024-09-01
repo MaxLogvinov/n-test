@@ -1,6 +1,6 @@
+import styles from './RepositoryList.module.scss';
 import { useSelector } from 'react-redux';
 import { Typography } from '@mui/material';
-import styles from './RepositoryList.module.scss';
 import { githubStates } from '../../servises/selectors/githubSelector';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,15 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 export default function RepositoryList() {
-  const { repositories, status, error, isSearchStarted } = useSelector(githubStates);
-
-  if (status === 'loading') {
-    return <p>Loading...</p>;
-  }
-
-  if (status === 'failed') {
-    return <p>Error: {error}</p>;
-  }
+  const { repositories, isSearchStarted } = useSelector(githubStates);
 
   const formatDate = (isoString: string) => {
     const date = new Date(isoString);
@@ -26,12 +18,7 @@ export default function RepositoryList() {
   };
 
   return (
-    <main>
-      {!isSearchStarted && (
-        <Typography className={styles.heading} variant="h1" component="h1">
-          Добро пожаловать
-        </Typography>
-      )}
+    <>
       {isSearchStarted && (
         <section className={styles.section}>
           <Typography className={styles.subheading} variant="h1" component="h2">
@@ -41,11 +28,19 @@ export default function RepositoryList() {
             <Table className={styles.tableContainer} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Название</TableCell>
-                  <TableCell align="left">Язык</TableCell>
-                  <TableCell align="left">Число&nbsp;форков</TableCell>
-                  <TableCell align="left">Число&nbsp;звёзд</TableCell>
-                  <TableCell align="left">Дата&nbsp;обновления</TableCell>
+                  <TableCell className={styles.itemTitle}>Название</TableCell>
+                  <TableCell className={styles.itemTitle} align="left">
+                    Язык
+                  </TableCell>
+                  <TableCell className={styles.itemTitle} align="left">
+                    Число&nbsp;форков
+                  </TableCell>
+                  <TableCell className={styles.itemTitle} align="left">
+                    Число&nbsp;звёзд
+                  </TableCell>
+                  <TableCell className={styles.itemTitle} align="left">
+                    Дата&nbsp;обновления
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -54,13 +49,21 @@ export default function RepositoryList() {
                     key={repo.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
+                    <TableCell className={styles.item} component="th" scope="row">
                       {repo.name}
                     </TableCell>
-                    <TableCell align="left">{repo.language}</TableCell>
-                    <TableCell align="left">{repo.forks_count}</TableCell>
-                    <TableCell align="left">{repo.stargazers_count}</TableCell>
-                    <TableCell align="left">{formatDate(repo.updated_at)}</TableCell>
+                    <TableCell className={styles.item} align="left">
+                      {repo.language}
+                    </TableCell>
+                    <TableCell className={styles.item} align="left">
+                      {repo.forks_count}
+                    </TableCell>
+                    <TableCell className={styles.item} align="left">
+                      {repo.stargazers_count}
+                    </TableCell>
+                    <TableCell className={styles.item} align="left">
+                      {formatDate(repo.updated_at)}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -68,6 +71,6 @@ export default function RepositoryList() {
           </TableContainer>
         </section>
       )}
-    </main>
+    </>
   );
 }
