@@ -1,7 +1,12 @@
 .section {
   display: flex;
-  flex-direction: column;
+  //   flex-direction: column;
   padding: 24px 0 24px 32px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
 }
 
 .subheading {
@@ -38,4 +43,8 @@
   line-height: 20.02px;
   letter-spacing: 0.17000000178813934px;
   text-align: left;
+}
+
+.item:hover {
+  cursor: pointer;
 }
