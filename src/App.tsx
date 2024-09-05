@@ -1,11 +1,13 @@
 import { Toolbar } from '@mui/material';
 import styles from './App.module.scss';
 import Header from './components/Header/Header';
-import Repository from './components/Repository/RepositoryList';
+import Repository from './components/Repository/Repository';
 
 //ToDo
 
 // -Types
+// Loading
+// hover
 
 export default function App() {
   return (

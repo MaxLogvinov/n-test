@@ -54,6 +54,7 @@ export default function RepositoryList() {
                 <TableBody>
                   {repositories.map(repo => (
                     <TableRow
+                      className={styles.itemRow}
                       key={repo.id}
                       onClick={() => handleRowClick(repo)}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
