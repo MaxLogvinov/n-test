@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getRepositories } from '../thunks/getRepositories';
 import { PayloadAction } from '@reduxjs/toolkit';
+import { Repository } from '../../utils/types';
 
 interface GithubState {
   repositories: Repository[];
@@ -36,7 +37,7 @@ const githubSlice = createSlice({
       })
       .addCase(getRepositories.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
+        state.error = action.error.message || 'Неизвестная ошибка';
       });
   }
 });

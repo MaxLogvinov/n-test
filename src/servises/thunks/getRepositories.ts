@@ -1,15 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Repository } from '../../utils/types';
 
 const GITHUB_API_URL = 'https://api.github.com/search/repositories';
-
-interface Repository {
-  id: number;
-  name: string;
-  html_url: string;
-  description: string;
-  // Добавьте другие поля, если они есть
-}
 
 export const getRepositories = createAsyncThunk<Repository[], string>(
   'getRepositories',

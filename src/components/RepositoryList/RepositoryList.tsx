@@ -10,17 +10,18 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import RepositoryDetails from '../RepositoryDetails/RepositoryDetails';
 import { useState } from 'react';
+import { Repo } from '../../utils/types';
 
 export default function RepositoryList() {
   const { repositories, isSearchStarted } = useSelector(githubStates);
-  const [selectedRepo, setSelectedRepo] = useState(null);
+  const [selectedRepo, setSelectedRepo] = useState<Repo | null>(null);
 
   const formatDate = (isoString: string) => {
     const date = new Date(isoString);
     return date.toLocaleDateString('ru-RU');
   };
 
-  const handleRowClick = repo => {
+  const handleRowClick = (repo: Repo): void => {
     setSelectedRepo(repo);
   };
 
@@ -80,7 +81,7 @@ export default function RepositoryList() {
               </Table>
             </TableContainer>
           </div>
-          {selectedRepo && <RepositoryDetails repo={selectedRepo} />}
+          <RepositoryDetails repo={selectedRepo} />
         </section>
       )}
     </>

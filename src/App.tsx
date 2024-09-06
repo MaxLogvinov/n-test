@@ -5,9 +5,7 @@ import Repository from './components/Repository/Repository';
 
 //ToDo
 
-// -Types
 // Loading
-// hover
 
 export default function App() {
   return (
