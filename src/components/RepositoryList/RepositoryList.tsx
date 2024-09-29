@@ -1,5 +1,5 @@
 import styles from './RepositoryList.module.scss';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Typography } from '@mui/material';
 import { githubStates } from '../../servises/selectors/githubSelector';
 import Table from '@mui/material/Table';
@@ -11,18 +11,35 @@ import TableRow from '@mui/material/TableRow';
 import RepositoryDetails from '../RepositoryDetails/RepositoryDetails';
 import { useState } from 'react';
 import { Repo } from '../../utils/types';
+import TablePagination from '@mui/material/TablePagination';
+import { AppDispatch } from '../../servises/store';
+import { setCurrentPage, setPerPage } from '../../servises/slices/getRepositoriesSlice';
+import { getRepositories } from '../../servises/thunks/getRepositories';
 
 export default function RepositoryList() {
-  const { repositories, isSearchStarted } = useSelector(githubStates);
+  const dispatch = useDispatch<AppDispatch>();
+  const { repositories, total_count, currentPage, perPage, isSearchStarted, query } =
+    useSelector(githubStates);
   const [selectedRepo, setSelectedRepo] = useState<Repo | null>(null);
+
+  const handleRowClick = (repo: Repo): void => {
+    setSelectedRepo(repo);
+  };
+
+  const handlePageChange = (event: unknown, newPage: number) => {
+    dispatch(setCurrentPage(newPage + 1));
+    dispatch(getRepositories({ query: query, perPage, page: newPage + 1 }));
+  };
+
+  const handlePerPageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setPerPage(parseInt(event.target.value, 10)));
+    dispatch(setCurrentPage(1));
+    dispatch(getRepositories({ query: query, perPage: parseInt(event.target.value, 10), page: 1 }));
+  };
 
   const formatDate = (isoString: string) => {
     const date = new Date(isoString);
     return date.toLocaleDateString('ru-RU');
-  };
-
-  const handleRowClick = (repo: Repo): void => {
-    setSelectedRepo(repo);
   };
 
   return (
@@ -79,6 +96,15 @@ export default function RepositoryList() {
                   ))}
                 </TableBody>
               </Table>
+              <TablePagination
+                component="div"
+                count={total_count}
+                page={currentPage - 1}
+                onPageChange={handlePageChange}
+                rowsPerPage={perPage}
+                onRowsPerPageChange={handlePerPageChange}
+                rowsPerPageOptions={[10, 25, 50]}
+              />
             </TableContainer>
           </div>
           <RepositoryDetails repo={selectedRepo} />

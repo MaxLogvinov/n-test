@@ -8,13 +8,21 @@ interface GithubState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
   isSearchStarted: boolean;
+  currentPage: number;
+  perPage: number;
+  total_count: number;
+  query: string;
 }
 
 const initialGithubState: GithubState = {
   repositories: [],
   status: 'idle',
   error: null,
-  isSearchStarted: false
+  isSearchStarted: false,
+  currentPage: 1,
+  perPage: 10,
+  total_count: 0,
+  query: ''
 };
 
 const githubSlice = createSlice({
@@ -23,6 +31,15 @@ const githubSlice = createSlice({
   reducers: {
     setIsSearchStarted: (state, action: PayloadAction<boolean>) => {
       state.isSearchStarted = action.payload;
+    },
+    setPerPage: (state, action: PayloadAction<number>) => {
+      state.perPage = action.payload;
+    },
+    setCurrentPage: (state, action: PayloadAction<number>) => {
+      state.currentPage = action.payload;
+    },
+    setQuery: (state, action: PayloadAction<string>) => {
+      state.query = action.payload;
     }
   },
   extraReducers: builder => {
@@ -32,8 +49,8 @@ const githubSlice = createSlice({
       })
       .addCase(getRepositories.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        console.log(action.payload);
-        state.repositories = action.payload;
+        state.repositories = action.payload.items;
+        state.total_count = action.payload.total_count;
       })
       .addCase(getRepositories.rejected, (state, action) => {
         state.status = 'failed';
@@ -42,5 +59,5 @@ const githubSlice = createSlice({
   }
 });
 
-export const { setIsSearchStarted } = githubSlice.actions;
+export const { setIsSearchStarted, setPerPage, setCurrentPage, setQuery } = githubSlice.actions;
 export default githubSlice.reducer;
