@@ -13,13 +13,27 @@ import { useState } from 'react';
 import { Repo } from '../../utils/types';
 import TablePagination from '@mui/material/TablePagination';
 import { AppDispatch } from '../../servises/store';
-import { setCurrentPage, setPerPage } from '../../servises/slices/getRepositoriesSlice';
+import {
+  setCurrentPage,
+  setPerPage,
+  setSortField,
+  setSortDirection
+} from '../../servises/slices/getRepositoriesSlice';
 import { getRepositories } from '../../servises/thunks/getRepositories';
+import { ArrowDropDown } from '@mui/icons-material';
 
 export default function RepositoryList() {
   const dispatch = useDispatch<AppDispatch>();
-  const { repositories, total_count, currentPage, perPage, isSearchStarted, query } =
-    useSelector(githubStates);
+  const {
+    repositories,
+    total_count,
+    currentPage,
+    perPage,
+    isSearchStarted,
+    query,
+    sortField,
+    sortDirection
+  } = useSelector(githubStates);
   const [selectedRepo, setSelectedRepo] = useState<Repo | null>(null);
 
   const handleRowClick = (repo: Repo): void => {
@@ -34,12 +48,36 @@ export default function RepositoryList() {
   const handlePerPageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setPerPage(parseInt(event.target.value, 10)));
     dispatch(setCurrentPage(1));
-    dispatch(getRepositories({ query: query, perPage: parseInt(event.target.value, 10), page: 1 }));
+    dispatch(
+      getRepositories({
+        query: query,
+        perPage: parseInt(event.target.value, 10),
+        page: 1
+      })
+    );
   };
 
   const formatDate = (isoString: string) => {
     const date = new Date(isoString);
     return date.toLocaleDateString('ru-RU');
+  };
+
+  const handleSort = (field: string) => {
+    if (sortField === field) {
+      dispatch(setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc'));
+    } else {
+      dispatch(setSortField(field));
+      dispatch(setSortDirection('desc'));
+    }
+    dispatch(
+      getRepositories({
+        query,
+        perPage,
+        page: currentPage,
+        sortField: field,
+        sortDirection: sortDirection === 'asc' ? 'desc' : 'asc'
+      })
+    );
   };
 
   return (
@@ -58,17 +96,60 @@ export default function RepositoryList() {
                     <TableCell className={styles.itemTitle} align="left">
                       Язык
                     </TableCell>
-                    <TableCell className={styles.itemTitle} align="left">
+                    <TableCell
+                      className={styles.itemTitle}
+                      align="left"
+                      onClick={e => {
+                        e.preventDefault();
+                        handleSort('forks');
+                      }}
+                    >
+                      <ArrowDropDown
+                        className={
+                          sortField === 'forks' && sortDirection === 'desc'
+                            ? styles.arrowDown
+                            : styles.arrowUp
+                        }
+                      />
                       Число&nbsp;форков
                     </TableCell>
-                    <TableCell className={styles.itemTitle} align="left">
+                    <TableCell
+                      className={styles.itemTitle}
+                      align="left"
+                      onClick={e => {
+                        e.preventDefault();
+                        handleSort('stars');
+                      }}
+                    >
+                      <ArrowDropDown
+                        className={
+                          sortField === 'stars' && sortDirection === 'desc'
+                            ? styles.arrowDown
+                            : styles.arrowUp
+                        }
+                      />
                       Число&nbsp;звёзд
                     </TableCell>
-                    <TableCell className={styles.itemTitle} align="left">
+                    <TableCell
+                      className={styles.itemTitle}
+                      align="left"
+                      onClick={e => {
+                        e.preventDefault();
+                        handleSort('updated');
+                      }}
+                    >
+                      <ArrowDropDown
+                        className={
+                          sortField === 'updated' && sortDirection === 'desc'
+                            ? styles.arrowDown
+                            : styles.arrowUp
+                        }
+                      />
                       Дата&nbsp;обновления
                     </TableCell>
                   </TableRow>
                 </TableHead>
+
                 <TableBody>
                   {repositories.map(repo => (
                     <TableRow

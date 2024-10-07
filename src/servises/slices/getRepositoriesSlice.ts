@@ -12,6 +12,8 @@ interface GithubState {
   perPage: number;
   total_count: number;
   query: string;
+  sortField: string | null;
+  sortDirection: 'asc' | 'desc';
 }
 
 const initialGithubState: GithubState = {
@@ -22,7 +24,9 @@ const initialGithubState: GithubState = {
   currentPage: 1,
   perPage: 10,
   total_count: 0,
-  query: ''
+  query: '',
+  sortField: null,
+  sortDirection: 'desc'
 };
 
 const githubSlice = createSlice({
@@ -40,6 +44,14 @@ const githubSlice = createSlice({
     },
     setQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
+    },
+    setSortField: (state, action: PayloadAction<string>) => {
+      state.sortField = action.payload;
+      console.log(action.payload);
+    },
+    setSortDirection: (state, action: PayloadAction<'asc' | 'desc'>) => {
+      state.sortDirection = action.payload;
+      console.log(action.payload);
     }
   },
   extraReducers: builder => {
@@ -59,5 +71,12 @@ const githubSlice = createSlice({
   }
 });
 
-export const { setIsSearchStarted, setPerPage, setCurrentPage, setQuery } = githubSlice.actions;
+export const {
+  setIsSearchStarted,
+  setPerPage,
+  setCurrentPage,
+  setQuery,
+  setSortField,
+  setSortDirection
+} = githubSlice.actions;
 export default githubSlice.reducer;

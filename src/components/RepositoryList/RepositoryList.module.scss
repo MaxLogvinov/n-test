@@ -35,6 +35,19 @@
   width: 182.4px;
 }
 
+.arrow {
+  width: 10px;
+  height: 10px;
+}
+
+.arrowUp {
+  transform: rotate(0deg);
+}
+
+.arrowDown {
+  transform: rotate(180deg);
+}
+
 .item {
   font-weight: 400;
   font-family: Roboto, sans-serif;
