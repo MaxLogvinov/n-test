@@ -69,11 +69,8 @@ export default function RepositoryList() {
       newSortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
     }
 
-    console.log('Sorting by:', field, 'Direction:', newSortDirection);
-
     dispatch(setSortField(field));
     dispatch(setSortDirection(newSortDirection));
-
     dispatch(
       getRepositories({
         query,
