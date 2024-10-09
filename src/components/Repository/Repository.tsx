@@ -7,9 +7,9 @@ import RepositoryList from '../RepositoryList/RepositoryList';
 export default function Repository() {
   const { status, error, isSearchStarted } = useSelector(githubStates);
 
-  if (status === 'loading') {
-    return <p>Loading...</p>;
-  }
+  // if (status === 'loading') {
+  //   return <p>Loading...</p>;
+  // }
 
   if (status === 'failed') {
     return <p>Error: {error}</p>;

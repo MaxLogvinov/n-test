@@ -26,7 +26,7 @@ const initialGithubState: GithubState = {
   total_count: 0,
   query: '',
   sortField: null,
-  sortDirection: 'desc'
+  sortDirection: 'asc'
 };
 
 const githubSlice = createSlice({
@@ -47,11 +47,9 @@ const githubSlice = createSlice({
     },
     setSortField: (state, action: PayloadAction<string>) => {
       state.sortField = action.payload;
-      console.log(action.payload);
     },
     setSortDirection: (state, action: PayloadAction<'asc' | 'desc'>) => {
       state.sortDirection = action.payload;
-      console.log(action.payload);
     }
   },
   extraReducers: builder => {

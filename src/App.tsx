@@ -7,7 +7,6 @@ import Footer from './components/Footer/Footer';
 //ToDo
 
 // Loading
-// filters
 
 export default function App() {
   return (

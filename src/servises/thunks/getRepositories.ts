@@ -16,13 +16,13 @@ export const getRepositories = createAsyncThunk<
 >('getRepositories', async ({ query, perPage, page, sortField, sortDirection }) => {
   let url = `${GITHUB_API_URL}?q=${query}&per_page=${perPage}&page=${page}`;
 
+  // Изменяем поля сортировки на правильные значения
   if (sortField && sortDirection) {
-    const validSortField =
-      sortField === 'forks' ? 'forks' : sortField === 'stars' ? 'stars' : sortField;
-    url += `&sort=${validSortField}&order=${sortDirection}`;
+    // Добавляем параметр сортировки только при наличии значений
+    url += `&sort=${sortField}&order=${sortDirection}`;
   }
 
-  console.log('Request URL:', url);
+  console.log('Request URL:', url); // Для отладки
   const response = await axios.get(url);
   return response.data;
 });

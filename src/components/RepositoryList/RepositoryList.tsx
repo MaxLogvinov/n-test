@@ -63,19 +63,24 @@ export default function RepositoryList() {
   };
 
   const handleSort = (field: string) => {
+    let newSortDirection: 'asc' | 'desc' = 'desc';
+
     if (sortField === field) {
-      dispatch(setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc'));
-    } else {
-      dispatch(setSortField(field));
-      dispatch(setSortDirection('desc'));
+      newSortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
     }
+
+    console.log('Sorting by:', field, 'Direction:', newSortDirection);
+
+    dispatch(setSortField(field));
+    dispatch(setSortDirection(newSortDirection));
+
     dispatch(
       getRepositories({
         query,
         perPage,
         page: currentPage,
         sortField: field,
-        sortDirection: sortDirection === 'asc' ? 'desc' : 'asc'
+        sortDirection: newSortDirection
       })
     );
   };
