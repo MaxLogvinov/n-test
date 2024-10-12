@@ -1,5 +1,4 @@
 import styles from './Loading.module.scss';
-
 import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Loading() {

@@ -3,13 +3,13 @@ import { Typography } from '@mui/material';
 import styles from './Repository.module.scss';
 import { githubStates } from '../../servises/selectors/githubSelector';
 import RepositoryList from '../RepositoryList/RepositoryList';
-import Skeleton from '../Loading/Loading';
+import Loading from '../Loading/Loading';
 
 export default function Repository() {
   const { status, error, isSearchStarted } = useSelector(githubStates);
 
   if (status === 'loading') {
-    return <Skeleton />;
+    return <Loading />;
   }
 
   if (status === 'failed') {
