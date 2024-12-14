@@ -99,7 +99,7 @@ export default function RepositoryList() {
                       Язык
                     </TableCell>
                     <TableCell
-                      className={styles.itemTitle}
+                      className={styles.itemTitleCursor}
                       align="left"
                       onClick={e => {
                         e.preventDefault();
@@ -116,7 +116,7 @@ export default function RepositoryList() {
                       Число&nbsp;форков
                     </TableCell>
                     <TableCell
-                      className={styles.itemTitle}
+                      className={styles.itemTitleCursor}
                       align="left"
                       onClick={e => {
                         e.preventDefault();
@@ -133,7 +133,7 @@ export default function RepositoryList() {
                       Число&nbsp;звёзд
                     </TableCell>
                     <TableCell
-                      className={styles.itemTitle}
+                      className={styles.itemTitleCursor}
                       align="left"
                       onClick={e => {
                         e.preventDefault();

@@ -29,7 +29,7 @@ export default function Header() {
           inputProps={{ 'aria-label': 'Введите поисковый запрос' }}
           onChange={e => dispatch(setQuery(e.target.value))}
         />
-        <Button className={styles.button} variant="contained">
+        <Button type="submit" className={styles.button} variant="contained">
           Искать
         </Button>
       </form>
