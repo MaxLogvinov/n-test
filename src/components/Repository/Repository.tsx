@@ -17,7 +17,7 @@ export default function Repository() {
   }
 
   return (
-    <main>
+    <main className={styles.main}>
       {!isSearchStarted && (
         <Typography className={styles.heading} variant="h1" component="h1">
           Добро пожаловать

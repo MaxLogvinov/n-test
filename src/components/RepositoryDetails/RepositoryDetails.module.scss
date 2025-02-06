@@ -1,6 +1,9 @@
 .card {
   width: 480px;
   background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .notification {
@@ -10,13 +13,14 @@
   line-height: 20.02px;
   letter-spacing: 0.17000000178813934px;
   text-align: center;
-  padding: 50vh 0 0 0;
+  // padding: 50vh 0 0 0;
 }
 
 .cardContent {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  align-self: self-start;
 }
 
 .name {

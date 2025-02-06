@@ -1,11 +1,15 @@
 .section {
   display: flex;
+  height: 100%;
+  width: 100%;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   padding: 35px 16px 24px 32px;
+  height: 100%;
+  width: 100%;
 }
 
 .subheading {
@@ -44,6 +48,7 @@
   text-align: left;
   width: 182.4px;
   cursor: pointer;
+  padding-left: 0;
 }
 
 .arrow {
